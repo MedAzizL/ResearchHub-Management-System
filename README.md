@@ -1,1 +1,1 @@
-# E-commerce-Web-Application
+# ResearchHub-Management-System
