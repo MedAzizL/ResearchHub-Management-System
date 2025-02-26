@@ -1,5 +1,6 @@
 package com.example.ResearchHub.Entities;
 
+import com.example.ResearchHub.Enum.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,4 +25,5 @@ public class User {
     private String originalEstablishment;
     private String lastDiploma;
     private String grade;
+    private Role role;
 }
