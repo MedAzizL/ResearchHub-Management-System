@@ -1,15 +1,15 @@
 package com.example.ResearchHub.Controllers;
 
 import com.example.ResearchHub.Dto.UserCreateRequest;
+import com.example.ResearchHub.Entities.User;
 import com.example.ResearchHub.Services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
@@ -22,5 +22,10 @@ public class UserController {
     public ResponseEntity<String> createUser(@RequestBody UserCreateRequest userCreateRequest) {
         userService.createUser(userCreateRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body("User created successfully");
+    }
+
+    @GetMapping
+    public  List<User> getAllUsers() {
+        return userService.getAllUsers();
     }
 }
