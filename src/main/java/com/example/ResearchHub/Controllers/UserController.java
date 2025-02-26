@@ -4,6 +4,7 @@ import com.example.ResearchHub.Dto.UserCreateRequest;
 import com.example.ResearchHub.Dto.UserUpdateRequest;
 import com.example.ResearchHub.Entities.User;
 import com.example.ResearchHub.Services.UserService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,6 +42,13 @@ public class UserController {
     public ResponseEntity<String> deleteUser(@PathVariable int id) {
         userService.deleteUser(id);
         return ResponseEntity.ok("User deleted successfully");
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUserById(@PathVariable int id) {
+        return userService.getUserById(id)
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> new EntityNotFoundException("User with ID " + id + " not found"));
     }
 
 
