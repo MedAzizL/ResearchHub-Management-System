@@ -1,6 +1,7 @@
 package com.example.ResearchHub.Services;
 
 import com.example.ResearchHub.Dto.UserCreateRequest;
+import com.example.ResearchHub.Dto.UserUpdateRequest;
 import com.example.ResearchHub.Entities.User;
 import com.example.ResearchHub.Repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +35,23 @@ public class UserService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
+
+    public void updateUser(UserUpdateRequest userUpdateRequest, int id) {
+        User user = userRepository.findById(id).orElseThrow();
+        user.setFirstName(userUpdateRequest.getFirstName());
+        user.setLastName(userUpdateRequest.getLastName());
+        user.setEmail(userUpdateRequest.getEmail());
+        user.setEmploymentDate(userUpdateRequest.getEmploymentDate());
+        user.setPassword(userUpdateRequest.getPassword());
+        user.setLastDiploma(userUpdateRequest.getLastDiploma());
+        user.setOriginalEstablishment(userUpdateRequest.getOriginalEstablishment());
+        user.setGrade(userUpdateRequest.getGrade());
+
+
+        userRepository.save(user);
+    }
+    
+
 
 
 }

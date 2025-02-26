@@ -1,6 +1,7 @@
 package com.example.ResearchHub.Controllers;
 
 import com.example.ResearchHub.Dto.UserCreateRequest;
+import com.example.ResearchHub.Dto.UserUpdateRequest;
 import com.example.ResearchHub.Entities.User;
 import com.example.ResearchHub.Services.UserService;
 import lombok.RequiredArgsConstructor;
@@ -28,4 +29,17 @@ public class UserController {
     public  List<User> getAllUsers() {
         return userService.getAllUsers();
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateUser(@RequestBody UserUpdateRequest userUpdateRequest, @PathVariable int id) {
+        userService.updateUser(userUpdateRequest, id);
+        return ResponseEntity.ok("User updated successfully");
+    }
+
+
+    //@DeleteMapping
+
+
+
+
 }
