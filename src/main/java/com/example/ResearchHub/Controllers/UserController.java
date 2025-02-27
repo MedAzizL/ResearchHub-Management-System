@@ -50,8 +50,4 @@ public class UserController {
                 .map(ResponseEntity::ok)
                 .orElseThrow(() -> new EntityNotFoundException("User with ID " + id + " not found"));
     }
-
-
-
-
 }

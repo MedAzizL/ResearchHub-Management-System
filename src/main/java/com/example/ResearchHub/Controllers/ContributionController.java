@@ -8,6 +8,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/contribution")
 public class ContributionController {
-    @Autowired
-    private ContributionService service;
+//    private ContributionService service;
 }
