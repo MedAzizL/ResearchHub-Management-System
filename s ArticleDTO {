@@ -1,0 +1,48 @@
+[33mcommit 854cc11707fccb896a9875dc34a305abfdcc65bd[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/article-crud[m[33m, [m[1;31morigin/feature/article-crud[m[33m)[m
+Author: 3zayez <mohamedaziz.laifi@etudiant-isi.utm.tn>
+Date:   Wed Feb 26 23:48:05 2025 +0100
+
+    Initialize Article entity and repository
+
+[33mcommit 807dd465d42f4a1f556377c6274f836f2b8873d2[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/contribution[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: mazenhaouari40 <mazenhaouari97@gmail.com>
+Date:   Wed Feb 26 16:29:32 2025 +0100
+
+    adding autowired
+
+[33mcommit 8036dd1d27890b929ac9971e0522ef3ed6c98afc[m
+Author: mazenhaouari40 <mazenhaouari97@gmail.com>
+Date:   Wed Feb 26 15:45:07 2025 +0100
+
+    adding Contribution file's
+
+[33mcommit dadb6bbbedde88961373d462722f026f4947bee9[m
+Author: mazenhaouari40 <mazenhaouari97@gmail.com>
+Date:   Mon Feb 24 22:01:44 2025 +0100
+
+    adding some folder
+
+[33mcommit 28cdba63ac4fd3d7db0534d80c62b4e9e3e2f9b5[m
+Merge: 4243233 c323bfd
+Author: mazenhaouari40 <mazenhaouari97@gmail.com>
+Date:   Mon Feb 24 21:56:52 2025 +0100
+
+    first commit
+
+[33mcommit 42432331bd27e88b55f719e8399de9e90bea9cf9[m
+Author: mazenhaouari40 <mazenhaouari97@gmail.com>
+Date:   Mon Feb 24 21:54:06 2025 +0100
+
+    first commit
+
+[33mcommit c323bfd3bb0fc9b86a618881453b05622256d805[m
+Author: Yazid Dhouioui <88597706+YazidDh@users.noreply.github.com>
+Date:   Mon Feb 24 20:35:06 2025 +0100
+
+    Update README.md
+
+[33mcommit dc49792282bcda73cdb8b2ff6fb750fd6e9018c8[m
+Author: 3zayez <152171680+3zayez@users.noreply.github.com>
+Date:   Mon Feb 24 19:59:56 2025 +0100
+
+    Initial commit
