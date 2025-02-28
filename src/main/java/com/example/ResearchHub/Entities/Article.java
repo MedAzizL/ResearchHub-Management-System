@@ -2,6 +2,8 @@ package com.example.ResearchHub.Entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "articles")
 @Getter
@@ -22,6 +24,11 @@ public class Article {
     private String titre;
 
     private String motsCles;
+
+
+    //added by mazen
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Contribution> contributions;
 
     // Domain will be added later
 

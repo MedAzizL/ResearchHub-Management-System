@@ -31,4 +31,8 @@ public class Contribution {
 @JoinColumn(name="User_id",nullable = false)
 private User user;
 
+@ManyToOne
+@JoinColumn(name="Article_id",nullable = false)
+private Article article;
+
 }

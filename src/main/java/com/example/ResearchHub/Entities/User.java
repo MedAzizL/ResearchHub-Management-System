@@ -28,6 +28,7 @@ public class User {
     private String grade;
     private Role role;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    //added by mazen
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private List<Contribution> contributions;
 }
