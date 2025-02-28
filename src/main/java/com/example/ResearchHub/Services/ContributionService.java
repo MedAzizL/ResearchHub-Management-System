@@ -28,6 +28,7 @@ public class ContributionService {
     public void createContribution(CreateContributionDTO contributionDTO){
         User user = userRepository.findById(contributionDTO.getId_user()).orElseThrow(()-> new RuntimeException("User not Found"));
         Article article =  articleRepository.findById((long) contributionDTO.getId_article()).orElseThrow( () -> new RuntimeException("Article not found")  );
+
                 Contribution contribution = Contribution.builder()
                         .type(contributionDTO.getType())
                                 .date(contributionDTO.getDate())

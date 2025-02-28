@@ -4,6 +4,7 @@ import com.example.ResearchHub.Dto.CreateContributionDTO;
 import com.example.ResearchHub.Dto.UpdateContributionDTO;
 import com.example.ResearchHub.Entities.Contribution;
 import com.example.ResearchHub.Services.ContributionService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +14,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/contribution")
+@RequiredArgsConstructor
 public class ContributionController {
-   private ContributionService service;
+
+   private final ContributionService service;
 
    @PostMapping
    public ResponseEntity<String> createContribution(@RequestBody CreateContributionDTO createContributionDTO) {
