@@ -27,7 +27,7 @@ public class Article {
 
 
     //added by mazen
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private List<Contribution> contributions;
 
     // Domain will be added later

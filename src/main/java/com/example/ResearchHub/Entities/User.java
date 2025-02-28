@@ -29,6 +29,6 @@ public class User {
     private Role role;
 
     //added by mazen
-    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Contribution> contributions;
 }

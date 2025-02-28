@@ -14,6 +14,6 @@ public class CreateContributionDTO {
     private Type_contribution type;
     private Date date;
     private String lieu;
-    private int id_auteur;
+    private int id_user;
     private int id_article;
 }
