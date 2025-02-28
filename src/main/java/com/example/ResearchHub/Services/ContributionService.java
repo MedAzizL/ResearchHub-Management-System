@@ -59,8 +59,9 @@ public class ContributionService {
         contributionRepository.save(c);
     }
 
-    public Optional<Contribution> getContributionbyId(int id){
-        return contributionRepository.findById((long) id);
+    public Contribution getContributionbyId(int id){
+        Contribution c = contributionRepository.findById((long) id).orElseThrow(()->new RuntimeException("Contribution not found"));
+        return c;
     }
     public void deleteContribution(Contribution contribution){
         contributionRepository.delete(contribution);
