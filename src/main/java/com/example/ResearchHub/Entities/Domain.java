@@ -23,4 +23,6 @@ public class Domain {
 
     @OneToMany(mappedBy = "domain", cascade = CascadeType.ALL)
     private List<Article> articles;
+
+
 }

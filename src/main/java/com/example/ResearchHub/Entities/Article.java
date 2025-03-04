@@ -25,10 +25,12 @@ public class Article {
 
     private String motsCles;
 
-
-    //added by mazen
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private List<Contribution> contributions;
+
+    @ManyToOne
+    @JoinColumn(name="domaine_id",nullable = false)
+    private Domain domain;
 
     // Domain will be added later
 

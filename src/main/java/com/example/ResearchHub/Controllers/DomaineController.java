@@ -27,6 +27,7 @@ public class DomaineController {
 
     @PostMapping
     public Domain createDomaine(@RequestBody Domain domaine) {
+
         return domaineService.createDomaine(domaine);
     }
 
