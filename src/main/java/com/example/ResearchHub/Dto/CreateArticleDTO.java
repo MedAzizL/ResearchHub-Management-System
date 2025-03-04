@@ -12,4 +12,7 @@ public class CreateArticleDTO {
     private String titre;
 
     private String motsCles;
+
+    private Long domainId;
+
 }

@@ -7,10 +7,12 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class UpdateArticleDTO {
-    // fields are optional and can be updated individually
     private String doi;
 
     private String titre;
 
     private String motsCles;
+
+    private Long domainId;
+
 }
