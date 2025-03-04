@@ -1,7 +1,7 @@
 package com.example.ResearchHub.Entities;
 import jakarta.persistence.*;
 import lombok.*;
-
+import java.util.List;
 @Entity
 @Table(name = "articles")
 @Getter
@@ -23,13 +23,13 @@ public class Article {
 
     private String motsCles;
 
-    // Domain will be added later
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
+    private List<Contribution> contributions;
 
-    /* @ManyToMany
-    @JoinTable(
-            name = "article_domaine",
-            joinColumns = @JoinColumn(name = "article_id"),
-            inverseJoinColumns = @JoinColumn(name = "domaine_id")
-    )
-    private Set<Domaine> domaines; */
+    @ManyToOne
+    @JoinColumn(name="domaine_id",nullable = false)
+    private Domain domain;
+
+
+ 
 }

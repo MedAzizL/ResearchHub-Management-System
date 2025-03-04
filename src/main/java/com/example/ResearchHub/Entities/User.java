@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Users")
@@ -26,4 +27,8 @@ public class User {
     private String lastDiploma;
     private String grade;
     private Role role;
+
+    //added by mazen
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Contribution> contributions;
 }
