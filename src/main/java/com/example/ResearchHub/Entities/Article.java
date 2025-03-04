@@ -1,9 +1,7 @@
 package com.example.ResearchHub.Entities;
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.List;
-
 @Entity
 @Table(name = "articles")
 @Getter
@@ -32,13 +30,6 @@ public class Article {
     @JoinColumn(name="domaine_id",nullable = false)
     private Domain domain;
 
-    // Domain will be added later
 
-    /* @ManyToMany
-    @JoinTable(
-            name = "article_domaine",
-            joinColumns = @JoinColumn(name = "article_id"),
-            inverseJoinColumns = @JoinColumn(name = "domaine_id")
-    )
-    private Set<Domaine> domaines; */
+ 
 }

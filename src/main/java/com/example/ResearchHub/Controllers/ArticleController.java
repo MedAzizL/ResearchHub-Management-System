@@ -24,8 +24,8 @@ public class ArticleController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Article created successfully");
     }
 
-     @GetMapping
-   public List<Article> getAllArticles() {
+    @GetMapping
+    public List<Article> getAllArticles() {
         return articleService.getAllArticles();
     }
 
