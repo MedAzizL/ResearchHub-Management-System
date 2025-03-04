@@ -21,6 +21,7 @@ public class Article {
     @Column(nullable = false)
     private String titre;
 
+    @Column(nullable = false)
     private String motsCles;
 
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
