@@ -1,9 +1,9 @@
 package com.example.ResearchHub.Entities;
 
 import jakarta.persistence.*;
-        import lombok.*;
+import lombok.*;
 
-        import java.util.List;
+import java.util.List;
 
 @Entity
 @Table(name = "domains")
@@ -16,11 +16,12 @@ public class Domain {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_domain")
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "nom_domaine", nullable = false, unique = true)
     private String nomDomaine;
 
-    @OneToMany(mappedBy = "domain", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "domain", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Article> articles;
 }

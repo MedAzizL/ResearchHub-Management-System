@@ -2,26 +2,35 @@ package com.example.ResearchHub.Services;
 
 import com.example.ResearchHub.Entities.Domain;
 import com.example.ResearchHub.Repositories.DomaineRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class DomaineService {
-    @Autowired
-    private DomaineRepository domaineRepository;
+    private final DomaineRepository domaineRepository;
 
     public List<Domain> getAllDomaines() {
         return domaineRepository.findAll();
     }
 
     public Domain getDomaineById(Long id) {
-        return domaineRepository.findById(id).orElse(null);
+        return domaineRepository.findById(id).orElseThrow(() -> new RuntimeException("Domaine not found"));
     }
 
     public Domain createDomaine(Domain domaine) {
         return domaineRepository.save(domaine);
+    }
+
+    public void updateDomaine(Long id, Domain updatedDomaine) {
+        Domain domaine = domaineRepository.findById(id).orElseThrow(() -> new RuntimeException("Domaine not found"));
+        if (updatedDomaine.getNomDomaine() != null) {
+            domaine.setNomDomaine(updatedDomaine.getNomDomaine());
+        }
+        domaineRepository.save(domaine);
     }
 
     public void deleteDomaine(Long id) {
