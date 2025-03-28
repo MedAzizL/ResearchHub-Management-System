@@ -33,4 +33,6 @@ private User user;
 @JoinColumn(name="Article_id",nullable = false)
 private Article article;
 
+
+
 }

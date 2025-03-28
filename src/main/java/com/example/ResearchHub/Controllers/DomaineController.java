@@ -34,6 +34,6 @@ public class DomaineController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteDomaine(@PathVariable Long id) {
         domaineService.deleteDomaine(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 }

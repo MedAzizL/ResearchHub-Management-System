@@ -50,4 +50,6 @@ public class UserController {
                 .map(ResponseEntity::ok)
                 .orElseThrow(() -> new EntityNotFoundException("User with ID " + id + " not found"));
     }
+    //recherche user by name and or by email
+
 }
