@@ -14,10 +14,8 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class ArticleService {
-
     private final ArticleRepository ArticleRepository;
     private final DomaineRepository domainRepository;  // Add this for Domain handling
-
 
     public void createArticle(CreateArticleDTO createArticleDTO) {
     //adding domain in article  builder
@@ -51,7 +49,6 @@ public class ArticleService {
         if (updateArticleDTO.getMotsCles() != null) {
             article.setMotsCles(updateArticleDTO.getMotsCles());
         }
-
         ArticleRepository.save(article);
     }
 
