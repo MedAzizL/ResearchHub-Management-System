@@ -15,7 +15,6 @@ import java.util.List;
 @RequestMapping("/api/articles")
 @RequiredArgsConstructor
 public class ArticleController {
-
     private final ArticleService articleService;
 
     @PostMapping

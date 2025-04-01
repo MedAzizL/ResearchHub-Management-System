@@ -6,6 +6,9 @@ import com.example.ResearchHub.Entities.User;
 import com.example.ResearchHub.Repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,8 +19,12 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    public ResponseEntity<String> createUser(UserCreateRequest userCreateRequest) {
+        /*if (userRepository.findByEmail(userCreateRequest.getEmail()) != null){
+            return new ResponseEntity<>("email is taken",HttpStatus.BAD_REQUEST);
+        }*/
 
-    public void createUser(UserCreateRequest userCreateRequest) {
         User user = User.builder()
                 .firstName(userCreateRequest.getFirstName())
                 .lastName(userCreateRequest.getLastName())
@@ -25,12 +32,14 @@ public class UserService {
                 .grade(userCreateRequest.getGrade())
                 .role(userCreateRequest.getRole())
                 .employmentDate(userCreateRequest.getEmploymentDate())
-                .password(userCreateRequest.getPassword())
+                .password(passwordEncoder.encode(userCreateRequest.getPassword()))
                 .lastDiploma(userCreateRequest.getLastDiploma())
                 .originalEstablishment(userCreateRequest.getOriginalEstablishment())
                 .build();
 
         userRepository.save(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body("User created successfully");
+
     }
 
     public List<User> getAllUsers() {
@@ -57,5 +66,8 @@ public class UserService {
 
     public Optional<User> getUserById(int id) {
         return userRepository.findById(id);
+    }
+    public Optional<User> getUserByemail(String email) {
+        return userRepository.findByEmail(email);
     }
 }
