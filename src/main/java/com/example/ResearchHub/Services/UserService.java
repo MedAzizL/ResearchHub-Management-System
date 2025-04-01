@@ -21,9 +21,9 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     public ResponseEntity<String> createUser(UserCreateRequest userCreateRequest) {
-        /*if (userRepository.findByEmail(userCreateRequest.getEmail()) != null){
+        if (userRepository.findByEmail(userCreateRequest.getEmail()).isPresent()){
             return new ResponseEntity<>("email is taken",HttpStatus.BAD_REQUEST);
-        }*/
+        }
 
         User user = User.builder()
                 .firstName(userCreateRequest.getFirstName())
