@@ -63,6 +63,10 @@ public class UserService {
         return userRepository.findByFirstnameOrLastnameContaining(keyword);
     }
 
+    public User searchUserByEmail(String email) {
+        return userRepository.findUserByEmail(email);
+    }
+
 
 
 

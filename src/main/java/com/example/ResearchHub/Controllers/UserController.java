@@ -57,6 +57,11 @@ public class UserController {
         return ResponseEntity.ok(users);
     }
 
+    @GetMapping("/search/email/{email}")
+    public User searchUserByEmail(@PathVariable String email) {
+        return userService.searchUserByEmail(email);
+    }
+
 
 
 
