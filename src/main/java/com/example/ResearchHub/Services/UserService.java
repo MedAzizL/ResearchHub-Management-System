@@ -59,6 +59,10 @@ public class UserService {
         return userRepository.findById(id);
     }
 
+    public List<User> searchUsersByName(String keyword) {
+        return userRepository.findByFirstnameOrLastnameContaining(keyword);
+    }
+
 
 
 

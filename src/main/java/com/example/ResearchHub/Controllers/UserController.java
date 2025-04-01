@@ -51,6 +51,14 @@ public class UserController {
                 .orElseThrow(() -> new EntityNotFoundException("User with ID " + id + " not found"));
     }
 
+    @GetMapping("/search/username")
+    public ResponseEntity<List<User>> searchUsersByname(@RequestParam String keyword) {
+        List<User> users = userService.searchUsersByName(keyword);
+        return ResponseEntity.ok(users);
+    }
+
+
+
 
 
 
