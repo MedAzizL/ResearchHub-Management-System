@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/articles")
@@ -74,4 +75,11 @@ public class ArticleController {
                 .map(ResponseEntity::ok)
                 .orElseThrow(() -> new EntityNotFoundException("Article with ID " + id + " not found"));
     }
+
+    @GetMapping("search")
+    public Article getArticleByDoi(@RequestParam String doi) {
+        return articleService.getArticleByDoi(doi);
+    }
+
+
 }

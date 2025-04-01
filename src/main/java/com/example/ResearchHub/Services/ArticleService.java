@@ -99,4 +99,11 @@ public class ArticleService {
                 .orElseThrow(() -> new EntityNotFoundException("Article with ID " + id + " not found"));
         return article.getPdfDocument();
     }
+
+    public Article getArticleByDoi(String doi) {
+        return articleRepository.findByDoi(doi)
+                .orElseThrow(() -> new EntityNotFoundException("Article not found with DOI: " + doi));
+    }
+
+
 }
