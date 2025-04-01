@@ -24,6 +24,14 @@ public class Article {
     @Column(nullable = false)
     private String motsCles;
 
+
+    @Lob
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] pdfDocument;
+
+    private String documentName;
+    private String documentType;
+
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private List<Contribution> contributions;
 

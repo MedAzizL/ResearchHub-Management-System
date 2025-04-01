@@ -1,4 +1,5 @@
 package com.example.ResearchHub.Services;
+
 import com.example.ResearchHub.Dto.CreateArticleDTO;
 import com.example.ResearchHub.Dto.UpdateArticleDTO;
 import com.example.ResearchHub.Entities.Article;
@@ -8,6 +9,9 @@ import com.example.ResearchHub.Repositories.DomaineRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,31 +19,41 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ArticleService {
 
-    private final ArticleRepository ArticleRepository;
-    private final DomaineRepository domainRepository;  // Add this for Domain handling
+    private final ArticleRepository articleRepository;
+    private final DomaineRepository domainRepository;
 
-
-    public void createArticle(CreateArticleDTO createArticleDTO) {
-    //adding domain in article  builder
+    public void createArticle(CreateArticleDTO createArticleDTO) throws IOException {
         Domain domain = domainRepository.findById(createArticleDTO.getDomainId())
-                .orElseThrow(() -> new EntityNotFoundException("Domain with ID " + createArticleDTO.getDomainId() + " not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Domain not found"));
+
+        // Validate PDF
+        MultipartFile pdfFile = createArticleDTO.getPdfDocument();
+        if (pdfFile == null || pdfFile.isEmpty()) {
+            throw new IllegalArgumentException("PDF document is required");
+        }
+        if (!"application/pdf".equals(pdfFile.getContentType())) {
+            throw new IllegalArgumentException("Only PDF files are allowed");
+        }
 
         Article article = Article.builder()
                 .doi(createArticleDTO.getDoi())
                 .titre(createArticleDTO.getTitre())
                 .motsCles(createArticleDTO.getMotsCles())
                 .domain(domain)
+                .pdfDocument(pdfFile.getBytes())
+                .documentName(pdfFile.getOriginalFilename())
+                .documentType(pdfFile.getContentType())
                 .build();
 
-        ArticleRepository.save(article);
+        articleRepository.save(article);
     }
 
     public List<Article> getAllArticles() {
-        return ArticleRepository.findAll();
+        return articleRepository.findAll();
     }
 
-    public void updateArticle(UpdateArticleDTO updateArticleDTO, Long id) {
-        Article article = ArticleRepository.findById(id)
+    public void updateArticle(UpdateArticleDTO updateArticleDTO, Long id) throws IOException {
+        Article article = articleRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Article with ID " + id + " not found"));
 
         if (updateArticleDTO.getDoi() != null) {
@@ -51,18 +65,38 @@ public class ArticleService {
         if (updateArticleDTO.getMotsCles() != null) {
             article.setMotsCles(updateArticleDTO.getMotsCles());
         }
+        if (updateArticleDTO.getDomainId() != null) {
+            Domain domain = domainRepository.findById(updateArticleDTO.getDomainId())
+                    .orElseThrow(() -> new EntityNotFoundException("Domain with ID " + updateArticleDTO.getDomainId() + " not found"));
+            article.setDomain(domain);
+        }
+        if (updateArticleDTO.getPdfDocument() != null && !updateArticleDTO.getPdfDocument().isEmpty()) {
+            MultipartFile pdfFile = updateArticleDTO.getPdfDocument();
+            if (!"application/pdf".equals(pdfFile.getContentType())) {
+                throw new IllegalArgumentException("Only PDF files are allowed");
+            }
+            article.setPdfDocument(pdfFile.getBytes());
+            article.setDocumentName(pdfFile.getOriginalFilename());
+            article.setDocumentType(pdfFile.getContentType());
+        }
 
-        ArticleRepository.save(article);
+        articleRepository.save(article);
     }
 
     public void deleteArticle(Long id) {
-        if (!ArticleRepository.existsById(id)) {
+        if (!articleRepository.existsById(id)) {
             throw new EntityNotFoundException("Article with ID " + id + " not found");
         }
-        ArticleRepository.deleteById(id);
+        articleRepository.deleteById(id);
     }
 
     public Optional<Article> getArticleById(Long id) {
-        return ArticleRepository.findById(id);
+        return articleRepository.findById(id);
+    }
+
+    public byte[] getArticlePdf(Long id) {
+        Article article = articleRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Article with ID " + id + " not found"));
+        return article.getPdfDocument();
     }
 }
