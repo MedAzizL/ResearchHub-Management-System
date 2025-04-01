@@ -105,5 +105,9 @@ public class ArticleService {
                 .orElseThrow(() -> new EntityNotFoundException("Article not found with DOI: " + doi));
     }
 
+    public List<Article> searchByKeyword(String keyword) {
+        return articleRepository.findByMotsClesContaining(keyword);
+    }
+
 
 }

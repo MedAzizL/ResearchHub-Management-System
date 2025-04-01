@@ -76,9 +76,15 @@ public class ArticleController {
                 .orElseThrow(() -> new EntityNotFoundException("Article with ID " + id + " not found"));
     }
 
-    @GetMapping("search")
+    @GetMapping("search/doi")
     public Article getArticleByDoi(@RequestParam String doi) {
         return articleService.getArticleByDoi(doi);
+    }
+
+    @GetMapping("/search/keyword")
+    public ResponseEntity<List<Article>> getArticlesByKeyWord(@RequestParam String keyword) {
+        List<Article> articles = articleService.searchByKeyword(keyword);
+        return ResponseEntity.ok(articles);
     }
 
 
