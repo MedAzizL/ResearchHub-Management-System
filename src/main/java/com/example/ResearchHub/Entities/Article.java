@@ -39,6 +39,15 @@ public class Article {
     @JoinColumn(name="domaine_id",nullable = false)
     private Domain domain;
 
+    @ManyToMany
+    @JoinTable(
+            name = "article_authors",
+            joinColumns = @JoinColumn(name = "article_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> authors;
 
- 
+
+//recherche by doi
+ //affecter un article a un utilisateur
 }

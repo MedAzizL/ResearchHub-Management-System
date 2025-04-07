@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User,Integer> {
@@ -15,6 +16,9 @@ public interface UserRepository extends JpaRepository<User,Integer> {
             "OR LOWER(u.lastName) LIKE LOWER(CONCAT('%', :keyword, '%'))")
     List<User> findByFirstnameOrLastnameContaining(@Param("keyword") String keyword);
 
-    User findUserByEmail(String email);
+    Optional<User> findByEmail(String email);
 
+    User findUserByEmail(String email);
 }
+
+

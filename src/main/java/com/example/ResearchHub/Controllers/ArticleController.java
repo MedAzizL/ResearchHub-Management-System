@@ -20,7 +20,6 @@ import java.util.Optional;
 @RequestMapping("/api/articles")
 @RequiredArgsConstructor
 public class ArticleController {
-
     private final ArticleService articleService;
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

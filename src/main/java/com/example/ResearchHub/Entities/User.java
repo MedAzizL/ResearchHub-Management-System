@@ -31,4 +31,7 @@ public class User {
     //added by mazen
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Contribution> contributions;
+    // In User entity
+    @ManyToMany(mappedBy = "authors")
+    private List<Article> authoredArticles;
 }

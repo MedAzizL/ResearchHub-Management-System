@@ -23,6 +23,8 @@ public class ArticleService {
     private final DomaineRepository domainRepository;
 
     public void createArticle(CreateArticleDTO createArticleDTO) throws IOException {
+
+    //adding domain in article  builder
         Domain domain = domainRepository.findById(createArticleDTO.getDomainId())
                 .orElseThrow(() -> new EntityNotFoundException("Domain not found"));
 
@@ -81,6 +83,7 @@ public class ArticleService {
         }
 
         articleRepository.save(article);
+
     }
 
     public void deleteArticle(Long id) {
