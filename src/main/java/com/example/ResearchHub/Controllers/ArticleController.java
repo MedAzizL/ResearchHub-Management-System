@@ -3,13 +3,18 @@ import com.example.ResearchHub.Dto.CreateArticleDTO;
 import com.example.ResearchHub.Dto.UpdateArticleDTO;
 import com.example.ResearchHub.Entities.Article;
 import com.example.ResearchHub.Services.ArticleService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/articles")
@@ -18,8 +23,18 @@ public class ArticleController {
 
     private final ArticleService articleService;
 
-    @PostMapping
-    public ResponseEntity<String> createArticle(@RequestBody CreateArticleDTO createArticleDTO) {
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> createArticle(
+            @RequestPart("articleData") String  articleData,
+            @RequestPart("pdfDocument") MultipartFile pdfDocument) throws IOException {
+
+        // Convert articleData JSON string to DTO
+        ObjectMapper objectMapper = new ObjectMapper();
+        CreateArticleDTO createArticleDTO = objectMapper.readValue(articleData, CreateArticleDTO.class);
+
+        // Set the file in the DTO
+        createArticleDTO.setPdfDocument(pdfDocument);
+
         articleService.createArticle(createArticleDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body("Article created successfully");
     }
@@ -29,8 +44,21 @@ public class ArticleController {
         return articleService.getAllArticles();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<String> updateArticle(@RequestBody UpdateArticleDTO updateArticleDTO, @PathVariable Long id) {
+    @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> updateArticle(
+            @RequestPart("UpdateArticleData") String updateArticleData,
+            @RequestPart(value = "pdfDocument", required = false) MultipartFile pdfDocument,
+            @PathVariable Long id) throws IOException {
+
+        // Convert articleData JSON string to DTO
+        ObjectMapper objectMapper = new ObjectMapper();
+        UpdateArticleDTO updateArticleDTO = objectMapper.readValue(updateArticleData, UpdateArticleDTO.class);
+
+        // Set the file if provided
+        if (pdfDocument != null) {
+            updateArticleDTO.setPdfDocument(pdfDocument);
+        }
+
         articleService.updateArticle(updateArticleDTO, id);
         return ResponseEntity.ok("Article updated successfully");
     }
@@ -47,4 +75,17 @@ public class ArticleController {
                 .map(ResponseEntity::ok)
                 .orElseThrow(() -> new EntityNotFoundException("Article with ID " + id + " not found"));
     }
+
+    @GetMapping("search/doi")
+    public Article getArticleByDoi(@RequestParam String doi) {
+        return articleService.getArticleByDoi(doi);
+    }
+
+    @GetMapping("/search/keyword")
+    public ResponseEntity<List<Article>> getArticlesByKeyWord(@RequestParam String keyword) {
+        List<Article> articles = articleService.searchByKeyword(keyword);
+        return ResponseEntity.ok(articles);
+    }
+
+
 }

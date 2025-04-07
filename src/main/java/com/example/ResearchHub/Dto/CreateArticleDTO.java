@@ -1,5 +1,7 @@
 package com.example.ResearchHub.Dto;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,5 +16,6 @@ public class CreateArticleDTO {
     private String motsCles;
 
     private Long domainId;
+    private MultipartFile pdfDocument;
 
 }

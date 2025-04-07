@@ -1,5 +1,6 @@
 package com.example.ResearchHub.Dto;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
@@ -14,5 +15,6 @@ public class UpdateArticleDTO {
     private String motsCles;
 
     private Long domainId;
+    private MultipartFile pdfDocument;
 
 }
