@@ -1,7 +1,9 @@
 package com.example.ResearchHub.Controllers;
 
+import com.example.ResearchHub.Dto.UpdateDomainDTO;
 import com.example.ResearchHub.Entities.Domain;
 import com.example.ResearchHub.Services.DomaineService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,19 +23,28 @@ public class DomaineController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Domain> getDomaineById(@PathVariable Long id) {
-        Domain domaine = domaineService.getDomaineById(id);
-        return domaine != null ? ResponseEntity.ok(domaine) : ResponseEntity.notFound().build();
+        if (domaineService.getDomaineById(id) != null){
+            return ResponseEntity.ok(domaineService.getDomaineById(id));
+        }else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
     public Domain createDomaine(@RequestBody Domain domaine) {
-
         return domaineService.createDomaine(domaine);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteDomaine(@PathVariable Long id) {
+    public ResponseEntity<String> deleteDomaine(@PathVariable Long id) {
         domaineService.deleteDomaine(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("domaine deleted successfully");
+
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String>Updatedomaine(@PathVariable long id, @RequestBody UpdateDomainDTO domaine){
+        domaineService.updateDomaine(id,domaine);
+        return ResponseEntity.ok("domaine updated successfully");
     }
 }

@@ -1,5 +1,6 @@
 package com.example.ResearchHub.Services;
 
+import com.example.ResearchHub.Dto.UpdateDomainDTO;
 import com.example.ResearchHub.Entities.Domain;
 import com.example.ResearchHub.Repositories.DomaineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,15 @@ public class DomaineService {
     public Domain createDomaine(Domain domaine) {
         return domaineRepository.save(domaine);
     }
-
     public void deleteDomaine(Long id) {
         domaineRepository.deleteById(id);
+    }
+
+    public void updateDomaine(Long id, UpdateDomainDTO domaine){
+        Domain d = domaineRepository.findById(id).orElse(null);
+        if (domaine.getNomDomaine() != null ){
+            d.setNomDomaine(domaine.getNomDomaine());
+        }
+        domaineRepository.save(d);
     }
 }
