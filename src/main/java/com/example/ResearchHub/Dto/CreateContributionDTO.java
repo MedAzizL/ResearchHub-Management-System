@@ -11,9 +11,9 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 public class CreateContributionDTO {
-    private Type_contribution type;
+   // private Type_contribution type;
     private Date date;
-    private String lieu;
+    //private String lieu;
     private int id_user;
     private int id_article;
 }

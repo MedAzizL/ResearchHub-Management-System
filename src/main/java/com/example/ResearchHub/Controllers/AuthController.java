@@ -55,8 +55,8 @@ public class AuthController {
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(loginDto.getEmail());
 
         String jwt = jwtGenerator.generateToken(userDetails.getUsername());
-
-        return ResponseEntity.ok(new AuthResponseDTO(jwt));
+        User user = optionalUser.get();
+        return ResponseEntity.ok(new AuthResponseDTO(jwt,user));
     }
 
     @PostMapping("/register")

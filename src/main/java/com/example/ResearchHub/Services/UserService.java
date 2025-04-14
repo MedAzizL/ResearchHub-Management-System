@@ -52,7 +52,7 @@ public class UserService {
         user.setLastName(userUpdateRequest.getLastName());
         user.setEmail(userUpdateRequest.getEmail());
         user.setEmploymentDate(userUpdateRequest.getEmploymentDate());
-        user.setPassword(userUpdateRequest.getPassword());
+        user.setPassword(passwordEncoder.encode(userUpdateRequest.getPassword()));
         user.setLastDiploma(userUpdateRequest.getLastDiploma());
         user.setOriginalEstablishment(userUpdateRequest.getOriginalEstablishment());
         user.setGrade(userUpdateRequest.getGrade());

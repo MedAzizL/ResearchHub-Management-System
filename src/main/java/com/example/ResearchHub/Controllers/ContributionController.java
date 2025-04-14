@@ -1,5 +1,6 @@
 package com.example.ResearchHub.Controllers;
 
+import com.example.ResearchHub.Dto.Contribution_BY_ArticleDTO;
 import com.example.ResearchHub.Dto.CreateContributionDTO;
 import com.example.ResearchHub.Dto.UpdateContributionDTO;
 import com.example.ResearchHub.Entities.Contribution;
@@ -50,5 +51,9 @@ public class ContributionController {
       return ResponseEntity.ok("Contribution deleted successfully");
    }
 
+   @GetMapping("/article/{id}")
+   public List<Contribution_BY_ArticleDTO> getContributionbyarticle(@PathVariable int id){
+      return service.getContributionbyarticleid(id);
+   }
 
 }

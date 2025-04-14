@@ -1,6 +1,7 @@
 package com.example.ResearchHub.Entities;
 
 import com.example.ResearchHub.Enum.Role;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,10 +29,10 @@ public class User {
     private String grade;
     private Role role;
 
-    //added by mazen
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,orphanRemoval = true)
+    @JsonBackReference
     private List<Contribution> contributions;
     // In User entity
-    @ManyToMany(mappedBy = "authors")
-    private List<Article> authoredArticles;
+  //  @ManyToMany(mappedBy = "authors")
+  //  private List<Article> authoredArticles;
 }

@@ -1,5 +1,6 @@
 package com.example.ResearchHub.Services;
 
+import com.example.ResearchHub.Dto.Contribution_BY_ArticleDTO;
 import com.example.ResearchHub.Dto.CreateContributionDTO;
 import com.example.ResearchHub.Dto.UpdateContributionDTO;
 import com.example.ResearchHub.Entities.Article;
@@ -11,6 +12,7 @@ import com.example.ResearchHub.Repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,9 +32,9 @@ public class ContributionService {
         Article article =  articleRepository.findById((long) contributionDTO.getId_article()).orElseThrow( () -> new RuntimeException("Article not found")  );
 
                 Contribution contribution = Contribution.builder()
-                        .type(contributionDTO.getType())
+                     //   .type(contributionDTO.getType())
                                 .date(contributionDTO.getDate())
-                                        .lieu(contributionDTO.getLieu())
+                                    //    .lieu(contributionDTO.getLieu())
                                                 .user(user)
                                                     .article(article)
                                                                 .build();
@@ -40,15 +42,15 @@ public class ContributionService {
     }
     public void updateContribution(UpdateContributionDTO updateContributionDTO,int id){
         Contribution c = contributionRepository.findById((long)id).orElseThrow(()->new RuntimeException("contribution not found"));
-        if (updateContributionDTO.getType() != null){
+       /* if (updateContributionDTO.getType() != null){
             c.setType(updateContributionDTO.getType());
-        }
+        }*/
         if (updateContributionDTO.getDate() != null){
             c.setDate(updateContributionDTO.getDate());
         }
-        if (updateContributionDTO.getLieu() != null){
+        /*if (updateContributionDTO.getLieu() != null){
             c.setLieu(updateContributionDTO.getLieu());
-        }
+        }*/
         if (updateContributionDTO.getId_user() != null ){
             User user = userRepository.findById(updateContributionDTO.getId_user()).orElseThrow(()-> new RuntimeException("User not Found"));
             c.setUser(user);
@@ -64,6 +66,18 @@ public class ContributionService {
         Contribution c = contributionRepository.findById((long) id).orElseThrow(()->new RuntimeException("Contribution not found"));
         return c;
     }
+
+    public List<Contribution_BY_ArticleDTO> getContributionbyarticleid(int id){
+        List<Contribution> listcontribution = contributionRepository.findContributionsByArticleId(id);
+
+        List<Contribution_BY_ArticleDTO> dtoList = new ArrayList<>();
+        for (Contribution contribution : listcontribution) {
+            User user = contribution.getUser();
+            dtoList.add(new Contribution_BY_ArticleDTO(user));
+        }
+        return dtoList;
+    }
+
     public void deleteContribution(Contribution contribution){
         contributionRepository.delete(contribution);
     }
