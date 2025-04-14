@@ -50,6 +50,16 @@ public class UserController {
                 .map(ResponseEntity::ok)
                 .orElseThrow(() -> new EntityNotFoundException("User with ID " + id + " not found"));
     }
-    //recherche user by name and or by email
 
+
+    @GetMapping("/search/username")
+    public ResponseEntity<List<User>> searchUsersByname(@RequestParam String keyword) {
+        List<User> users = userService.searchUsersByName(keyword);
+        return ResponseEntity.ok(users);
+    }
+
+    @GetMapping("/search/email/{email}")
+    public User searchUserByEmail(@PathVariable String email) {
+        return userService.searchUserByEmail(email);
+    }
 }
