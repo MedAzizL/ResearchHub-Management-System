@@ -10,9 +10,9 @@ import lombok.*;
 @Builder
 public class AuthResponseDTO {
     private String accessToken;
-    private User user;//private String tokenType = "Bearer ";
+    private UserAuthDTO user;//private String tokenType = "Bearer ";
 
-    public AuthResponseDTO(String accessToken,User user) {
+    public AuthResponseDTO(String accessToken,UserAuthDTO user) {
         this.accessToken = accessToken;
         this.user= user;
     }

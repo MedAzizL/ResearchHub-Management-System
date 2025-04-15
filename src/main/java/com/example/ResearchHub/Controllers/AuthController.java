@@ -2,6 +2,7 @@ package com.example.ResearchHub.Controllers;
 
 import com.example.ResearchHub.Dto.AuthResponseDTO;
 import com.example.ResearchHub.Dto.LoginDto;
+import com.example.ResearchHub.Dto.UserAuthDTO;
 import com.example.ResearchHub.Dto.UserCreateRequest;
 import com.example.ResearchHub.Entities.User;
 import com.example.ResearchHub.Services.UserService;
@@ -56,7 +57,21 @@ public class AuthController {
 
         String jwt = jwtGenerator.generateToken(userDetails.getUsername());
         User user = optionalUser.get();
-        return ResponseEntity.ok(new AuthResponseDTO(jwt,user));
+
+        UserAuthDTO userDTO = UserAuthDTO.builder()
+                .id(user.getId())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .employmentDate(user.getEmploymentDate())
+                .originalEstablishment(user.getOriginalEstablishment())
+                .lastDiploma(user.getLastDiploma())
+                .grade(user.getGrade())
+                .role(user.getRole())
+                .build();
+
+        return ResponseEntity.ok(new AuthResponseDTO(jwt, userDTO));
+
     }
 
     @PostMapping("/register")
