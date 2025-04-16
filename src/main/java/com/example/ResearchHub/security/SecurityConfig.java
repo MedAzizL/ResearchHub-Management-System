@@ -5,6 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -42,6 +45,14 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults()) // Safe for now if CorsConfigurationSource is defined
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/api/auth/**").permitAll()
+                                .requestMatchers(HttpMethod.GET,"/api/articles/**").permitAll()
+                                .requestMatchers("/api/domaines/**").hasRole("ADMIN")
+                                .requestMatchers("/api/user/**").hasRole("ADMIN")
+                                .requestMatchers("/api/contribution/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.POST, "/api/articles").hasRole("RESEARCHER")
+                                .requestMatchers(HttpMethod.PUT, "/api/articles").hasRole("RESEARCHER")
+                                //donwload pdf
+
                                 .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class) // Add filter before authentication filter
@@ -72,4 +83,11 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    //role configuration
+    @Bean
+    public RoleHierarchy roleHierarchy() {
+        RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
+        roleHierarchy.setHierarchy("ROLE_ADMIN > ROLE_RESEARCHER \n ROLE_RESEARCHER > ROLE_USER");
+        return roleHierarchy;
+    }
 }
