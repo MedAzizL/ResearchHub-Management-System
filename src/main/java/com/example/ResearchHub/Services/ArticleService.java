@@ -54,7 +54,7 @@ public class ArticleService {
         return articleRepository.findAll();
     }
 
-    public void updateArticle(UpdateArticleDTO updateArticleDTO, Long id) throws IOException {
+    public void  updateArticle(UpdateArticleDTO updateArticleDTO, Long id) throws IOException {
         Article article = articleRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Article with ID " + id + " not found"));
 
